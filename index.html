@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Calcul rentabilite projet</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="app">
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">Simulation immobiliere</p>
+        <h1>Calcul rentabilite projet</h1>
+      </div>
+    </header>
+
+    <section class="panel">
+      <div class="section-title">
+        <div>
+          <h2>Villes</h2>
+          <p>Ajoute une ville, ajuste le prix au m2, les trajets, l'essence et le nombre de semaines.</p>
+        </div>
+        <button class="icon-button primary" type="button" id="addCity" title="Ajouter une ville" aria-label="Ajouter une ville">+</button>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Ville</th>
+              <th>Prix m2</th>
+              <th>Prix securise</th>
+              <th>Distance</th>
+              <th>Km</th>
+              <th>Trajet</th>
+              <th>Cout semaine</th>
+              <th>Semaines</th>
+              <th>Cout total</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="citiesBody"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="panel compact-panel">
+      <div class="section-title">
+        <div>
+          <h2>Prix renovation</h2>
+          <p>Modifie les prix au m2 utilises dans les projets.</p>
+        </div>
+      </div>
+      <div class="rate-grid">
+        <label>
+          <span>Legere</span>
+          <input id="lightRenoRate" type="number" min="0" step="25">
+        </label>
+        <label>
+          <span>Standard</span>
+          <input id="standardRenoRate" type="number" min="0" step="25">
+        </label>
+        <label>
+          <span>Lourde</span>
+          <input id="heavyRenoRate" type="number" min="0" step="25">
+        </label>
+      </div>
+    </section>
+
+    <section class="panel">
+      <div class="section-title">
+        <div>
+          <h2>Lieux</h2>
+          <p>Choisis le type de renovation : le budget se calcule automatiquement avec les m2.</p>
+        </div>
+        <button class="icon-button primary" type="button" id="addProject" title="Ajouter un lieu" aria-label="Ajouter un lieu">+</button>
+      </div>
+      <div class="filters" id="cityFilters"></div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Lieu</th>
+              <th>Prix achat</th>
+              <th>m2</th>
+              <th>Reno</th>
+              <th>Reno / m2</th>
+              <th>Budget reno</th>
+              <th>Cout global</th>
+              <th>Loyer 21 ans</th>
+              <th>Loyer net</th>
+              <th>Resultat</th>
+              <th>Annonce</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="projectsBody"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <template id="cityRowTemplate">
+    <tr>
+      <td><input class="city-name-input" type="text"></td>
+      <td><input class="price-input" type="number" min="0" step="0.1"></td>
+      <td class="safe-price-cell">
+        <button class="safe-price-button" type="button"></button>
+        <input class="real-price-input" type="number" min="0" step="0.1" placeholder="Prix reel">
+      </td>
+      <td class="distance-cell">
+        <input class="distance-input" type="text">
+        <div class="fuel-inline">
+          <label>
+            <span>Conso</span>
+            <input class="fuel-consumption-input" type="number" min="0" step="0.1">
+          </label>
+          <label>
+            <span>Prix litre</span>
+            <input class="fuel-liter-price-input" type="number" min="0" step="0.01">
+          </label>
+        </div>
+      </td>
+      <td><input class="km-input" type="number" min="0" step="0.1"></td>
+      <td><input class="trips-input" type="number" min="0" step="1"></td>
+      <td class="week-cost"></td>
+      <td><input class="weeks-input" type="number" min="0" step="1"></td>
+      <td class="travel-cost"></td>
+      <td><button class="icon-button ghost delete-city" type="button" title="Supprimer" aria-label="Supprimer">x</button></td>
+    </tr>
+  </template>
+
+  <template id="projectRowTemplate">
+    <tr>
+      <td>
+        <select class="place-select"></select>
+      </td>
+      <td><input class="buy-input" type="number" min="0" step="100"></td>
+      <td><input class="area-input" type="number" min="0" step="1"></td>
+      <td>
+        <select class="reno-select">
+          <option value="light">Legere</option>
+          <option value="standard">Standard</option>
+          <option value="heavy">Lourde</option>
+          <option value="custom">Perso</option>
+        </select>
+      </td>
+      <td><input class="reno-rate-input" type="number" min="0" step="25"></td>
+      <td class="reno-budget"></td>
+      <td class="global-cost"></td>
+      <td class="rent-total"></td>
+      <td class="rent-net"></td>
+      <td class="result"></td>
+      <td class="ad-cell">
+        <input class="ad-link-input" type="url" placeholder="Lien">
+        <a class="ad-link" href="#" target="_blank" rel="noopener">Ouvrir</a>
+      </td>
+      <td><button class="icon-button ghost delete-row" type="button" title="Supprimer" aria-label="Supprimer">x</button></td>
+    </tr>
+  </template>
+
+  <script src="app.js"></script>
+</body>
+</html>
